@@ -1,0 +1,10 @@
+.eliminar {
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.editar {
+    font-size: 20px;
+    cursor: pointer;
+}

@@ -1,0 +1,44 @@
+<div class="container row">
+    <div class="col-md-6">
+        <form [formGroup]="formEmpleado" (ngSubmit)= "agregarEmpleado()">
+          <div class="mb-3">
+            <label class="form-label">ID-EMPLEADO</label>
+            <input type="text"
+             class="form-control" formControlName="id">
+          </div>
+
+            <div class="mb-3">
+              <label class="form-label">NOMBRE</label>
+              <input type="text"
+               class="form-control" formControlName="nombre">
+            </div>
+        
+            <div class="mb-3">
+              <label class="form-label">APELLIDO</label>
+              <input type="text"
+              class="form-control" formControlName= "apellido">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">EMAIL</label>
+                <input type="text"
+                class="form-control" formControlName= "email">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">N° DOCUMENTO</label>
+                <input type="text"
+                class="form-control" formControlName= "dni">
+              </div>
+
+              <div class="container padre">
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                  <button type="submit" class="btn btn-success">AGREGAR</button>
+                  <button type="button" class="btn btn-primary">MODIFICAR</button>
+                  <button (click)="resetForm()" type="button" class="btn btn-warning">CANCELAR</button> 
+                </div>
+              </div>
+          </form>
+    </div>
+    <div class="col-md-5">
+        <app-list-empleado></app-list-empleado>
+    </div>
+</div>
