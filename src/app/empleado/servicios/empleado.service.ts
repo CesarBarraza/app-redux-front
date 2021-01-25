@@ -29,12 +29,4 @@ export class EmpleadoService {
   editEmpleado(empId: string | number, changes: Partial<Empleado>): Observable<Empleado>{
     return this.http.put<Empleado>(environment.URL_API+'/empleado/'+ empId, changes)
   }
-
-  refreshList(): Observable<Empleado>{
-    return this.nuevoEmpleado.asObservable();
-  }
-
-  filterEmpleado(filter: string){
-    this.nuevoEmpleado.next(filter)
-  }
 }
