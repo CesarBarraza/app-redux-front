@@ -11,7 +11,6 @@ export class EmpleadoService {
 
   constructor(private http: HttpClient) { }
 
-  nuevoEmpleado= new Subject<any>()
   empleadoService: Empleado
 
   getEmpleado(): Observable<Empleado[]>{
