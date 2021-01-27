@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { EmpleadoState } from '../../store/reducer';
+import { EmpleadoState, selectIds } from '../../store/reducer';
 import * as fromAction from '../../store/empleado.action';
 import { Empleado } from '../../empleado';
 import { selectEmpleados, selectEmpladoId } from '../../store/empleado.select';
@@ -14,6 +14,7 @@ import { selectEmpleados, selectEmpladoId } from '../../store/empleado.select';
 export class ListEmpleadoComponent implements OnInit {
 
   empleados$: Observable<Empleado[]>
+  empleado$: Observable<number[] | string[]>
 
   constructor(private store: Store<EmpleadoState>) { }
 
