@@ -1,0 +1,16 @@
+.menu {
+    height: 100%;
+    width: 200px;
+    background-color: rgb(45, 104, 104);
+    position: fixed;
+}
+
+.nav-item a {
+    color: black;
+    cursor: pointer;
+}
+
+.nav-item :hover{
+    border-bottom: rgb(76, 201, 201) 0.5px solid;
+    /*background-color: rgb(76, 201, 201);*/
+}
