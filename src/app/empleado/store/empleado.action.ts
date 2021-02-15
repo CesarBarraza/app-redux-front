@@ -4,17 +4,31 @@ import { Empleado } from '../empleado';
 
 
 //load empleados
-export const loadEmpleado= createAction(
+export const loadEmpleados= createAction(
     '[Empleado List Component] Load Empleado'
 );
-export const loadEmpleadoSuccess= createAction(
+export const loadEmpleadosSuccess= createAction(
     '[Empleado List Components] Load Empleado Success',
     props<{ empleado: Empleado[] }>()
 );
-export const loadEmpleadoFailure= createAction(
+export const loadEmpleadosFailure= createAction(
     '[Empleado List Component] Load Empleado Failure',
     props<{ error: any }>()
 );
+
+//select empleado
+export const loadEmpleado= createAction(
+    '[List Empleado component] load Empleado',
+    props<{id: number}>()
+);
+export const loadEmpleadoSuccess= createAction(
+    '[List Empleado component] load Empleado Success',
+    props<{ selectEmpleado: Empleado }>()
+);
+export const loadEmpleadoFailure= createAction(
+    '[List Empleado component] load Empleado Failuer',
+    props<{error: any }>()
+)
 
 //delete empleado
 export const deleteEmpleado= createAction(

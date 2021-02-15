@@ -11,19 +11,21 @@ import * as fromEmpleadoState from './store/reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { EmpleadoEffects } from './store/empleado.effects';
 import { MenuComponent } from './componentes/menu/menu.component';
+import { EmpleadoViewComponent } from './componentes/empleado-view/empleado-view.component';
 
 @NgModule({
   declarations: [
     ListEmpleadoComponent,
     FormEmpleadoComponent,
-    MenuComponent
+    MenuComponent,
+    EmpleadoViewComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forFeature(fromEmpleadoState.empleadoStateFeatureKey, fromEmpleadoState.reducer),
+    StoreModule.forFeature(fromEmpleadoState.empleadoStateFeatureKey, fromEmpleadoState.empleadoReducers),
     EffectsModule.forFeature([EmpleadoEffects])
   ], 
   exports: [

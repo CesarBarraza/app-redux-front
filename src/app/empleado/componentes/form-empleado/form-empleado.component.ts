@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
+import { Empleado } from '../../empleado';
+import { EmpleadoService } from '../../servicios/empleado.service';
 import * as fromAction from '../../store/empleado.action';
 import { selectEmpleados } from '../../store/empleado.select';
 import { EmpleadoState } from '../../store/reducer';
@@ -12,6 +15,8 @@ import { EmpleadoState } from '../../store/reducer';
 })
 export class FormEmpleadoComponent implements OnInit {
 
+  emp: any={}
+
   formEmpleado= new FormGroup({
     id: new FormControl('', Validators.required),
     nombre: new FormControl('', Validators.required),
@@ -19,10 +24,17 @@ export class FormEmpleadoComponent implements OnInit {
     email: new FormControl('', Validators.required),
     dni: new FormControl('', Validators.required)
   })
-  constructor(private store: Store<EmpleadoState>) { 
+  constructor(private store: Store<EmpleadoState>, public service: EmpleadoService) { 
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+    this.service.empleadoService={
+      id: null,
+      nombre: '',
+      apellido: '',
+      email: '',
+      dni: null
+    }
     
   }
 
@@ -33,6 +45,16 @@ export class FormEmpleadoComponent implements OnInit {
     }else{
       alert('todos los campos son necesarios')
     }
+  }
+
+  modificarEmpleado(){
+    const edit: Update<Empleado> ={
+      id: this.emp.id,
+      changes: this.formEmpleado.value
+    }
+
+    this.store.dispatch(fromAction.editEmpleado({ empleado: edit }))
+    this.store.dispatch(fromAction.loadEmpleados())
   }
 
   resetForm(){

@@ -3,36 +3,36 @@
         <form [formGroup]="formEmpleado" (ngSubmit)= "agregarEmpleado()">
           <div class="mb-3">
             <label class="form-label">ID-EMPLEADO</label>
-            <input type="text"
+            <input type="text" [(ngModel)]="service.empleadoService.id"
              class="form-control" formControlName="id">
           </div>
 
             <div class="mb-3">
               <label class="form-label">NOMBRE</label>
-              <input type="text"
+              <input type="text" [(ngModel)]="service.empleadoService.nombre"
                class="form-control" formControlName="nombre">
             </div>
         
             <div class="mb-3">
               <label class="form-label">APELLIDO</label>
-              <input type="text"
+              <input type="text" [(ngModel)]="service.empleadoService.apellido"
               class="form-control" formControlName= "apellido">
             </div>
             <div class="mb-3">
                 <label class="form-label">EMAIL</label>
-                <input type="text"
+                <input type="text" [(ngModel)]="service.empleadoService.email"
                 class="form-control" formControlName= "email">
               </div>
               <div class="mb-3">
                 <label class="form-label">N° DOCUMENTO</label>
-                <input type="text"
+                <input type="text" [(ngModel)]="service.empleadoService.dni"
                 class="form-control" formControlName= "dni">
               </div>
 
               <div class="container">
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                   <button type="submit" class="btn btn-success">AGREGAR</button>
-                  <button type="button" class="btn btn-primary">MODIFICAR</button>
+                  <button (click)="modificarEmpleado()" type="button" class="btn btn-primary">MODIFICAR</button>
                   <button (click)="resetForm()" type="button" class="btn btn-warning">CANCELAR</button> 
                 </div>
               </div>

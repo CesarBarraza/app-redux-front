@@ -7,7 +7,8 @@ import * as fromAction from './empleado.action';
 export const empleadoStateFeatureKey = 'empleadoState';
 
 export interface EmpleadoState extends EntityState<Empleado>{
-  //error: any
+  error: any
+  selectEmpleado: Empleado;
 }
 
 export function selectedtEmpId(e: Empleado): number{
@@ -24,12 +25,14 @@ export const adapter: EntityAdapter<Empleado>= createEntityAdapter<Empleado>({
 })
 
 export const initialState= adapter.getInitialState({
-  //error: undefined,
+  error: undefined,
+  selectEmplado: undefined
 })
 
 
 export const empleadoReducers = createReducer(
   initialState,
+  //agregar empleado
   on(fromAction.addEmpleadoSuccess, (state, action) =>{
     return adapter.upsertOne(action.empleado, state)
   }),
@@ -39,8 +42,22 @@ export const empleadoReducers = createReducer(
        error: action.error
      }
    }),
-  on(fromAction.loadEmpleadoSuccess, (state, action) =>{
+   //listar empleados
+  on(fromAction.loadEmpleadosSuccess, (state, action) =>{
     return adapter.setAll(action.empleado, state)
+  }),
+  on(fromAction.loadEmpleadosFailure, (state, action) =>{
+    return {
+      error: action.error,
+      ...state
+    }
+  }),
+  //selecionar un empleado
+  on(fromAction.loadEmpleadoSuccess, (state, action) =>{
+    return {
+      ...state,
+      selectEmplado: action.selectEmpleado
+    }
   }),
   on(fromAction.loadEmpleadoFailure, (state, action) =>{
     return {
@@ -48,6 +65,7 @@ export const empleadoReducers = createReducer(
       ...state
     }
   }),
+  //eliminar empleado
   on(fromAction.deleteEmpleadoSuccess, (state, action) =>{
     return adapter.removeOne(action.id, state)
   }),
@@ -57,14 +75,15 @@ export const empleadoReducers = createReducer(
       error: action.error
     }
   }),
+  //editar empleado
   on(fromAction.editEmpleado, (state, action) =>
   adapter.updateOne(action.empleado, state)
   )
 )
 
-export function reducer(state: EmpleadoState | undefined, action: Action) {
+/*export function reducer(state: EmpleadoState | undefined, action: Action) {
   return empleadoReducers(state, action);
-}
+}*/
 
 
 export const {

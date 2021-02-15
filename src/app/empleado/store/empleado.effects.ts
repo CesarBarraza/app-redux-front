@@ -13,12 +13,23 @@ export class EmpleadoEffects {
   //load empleado
   loadEmpleados$= createEffect(() =>
   this.actions$.pipe(
-    ofType(fromAction.loadEmpleado),
-    mergeMap(() => this.service.getEmpleado().pipe(
-      map(empleados => fromAction.loadEmpleadoSuccess({empleado: empleados})),
-      catchError(error => of(fromAction.loadEmpleadoFailure({error})))
+    ofType(fromAction.loadEmpleados),
+    mergeMap(() => this.service.getEmpleados().pipe(
+      map(empleados => fromAction.loadEmpleadosSuccess({empleado: empleados})),
+      catchError(error => of(fromAction.loadEmpleadosFailure({error})))
     ))
     )
+  )
+
+  //seleccionar empleado
+  loadEmpleado$= createEffect(() =>
+  this.actions$.pipe(
+    ofType(fromAction.loadEmpleado),
+    mergeMap(action => this.service.getEmpleado(action.id).pipe(
+      map((empleado) => fromAction.loadEmpleadoSuccess({ selectEmpleado: empleado })),
+      catchError(error => of(fromAction.loadEmpleadoFailure({error: error})))
+    ))
+  )
   )
 
   //delete empleado

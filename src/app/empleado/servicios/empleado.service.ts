@@ -13,8 +13,12 @@ export class EmpleadoService {
 
   empleadoService: Empleado
 
-  getEmpleado(): Observable<Empleado[]>{
+  getEmpleados(): Observable<Empleado[]>{
     return this.http.get<Empleado[]>(environment.URL_API+'/empleado');
+  }
+
+  getEmpleado(id: number): Observable<Empleado>{
+    return this.http.get<Empleado>(environment.URL_API+'/empleado/'+ id)
   }
 
   deleteEmpleado(id: number): Observable<any>{

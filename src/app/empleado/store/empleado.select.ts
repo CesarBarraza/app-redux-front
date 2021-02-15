@@ -10,7 +10,24 @@ export const selectEmpleados = createSelector(
     fromEmpReducer.selectAll
 );
 
-export const selectEmpladoId= createSelector(
+export const selectEmplado= createSelector(
     selectEmpleadoState,
-    fromEmpReducer.selectIds
+    (state: fromEmpReducer.EmpleadoState) => state.selectEmpleado
+);
+
+export const selectAllEntities = createSelector(
+    selectEmpleadoState,
+    fromEmpReducer.selectEntities
+);
+
+export const entityExists = createSelector(
+    selectAllEntities,
+    (entities, props): boolean => {
+        return entities[props.id] == undefined ? false : true
+    }
+);
+
+export const selectEntityById = createSelector(
+    selectAllEntities,
+    (entities, props) => entities[props.id]
 )

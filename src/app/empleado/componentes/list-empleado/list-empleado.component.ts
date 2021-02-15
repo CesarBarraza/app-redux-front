@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { EmpleadoState, selectIds } from '../../store/reducer';
 import * as fromAction from '../../store/empleado.action';
 import { Empleado } from '../../empleado';
-import { selectEmpleados, selectEmpladoId } from '../../store/empleado.select';
+import { selectEmplado, selectEmpleados } from '../../store/empleado.select';
+import { EmpleadoService } from '../../servicios/empleado.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-empleado',
@@ -14,12 +16,14 @@ import { selectEmpleados, selectEmpladoId } from '../../store/empleado.select';
 export class ListEmpleadoComponent implements OnInit {
 
   empleados$: Observable<Empleado[]>
-  empleado$: Observable<number[] | string[]>
+  empleado: any={}
 
-  constructor(private store: Store<EmpleadoState>) { }
+  constructor(private store: Store<EmpleadoState>, 
+              private service: EmpleadoService,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.store.dispatch(fromAction.loadEmpleado())
+    this.store.dispatch(fromAction.loadEmpleados())
     this.loadEmpleados()
   }
 
@@ -28,7 +32,14 @@ export class ListEmpleadoComponent implements OnInit {
   }
 
   deleteEmpelado(id: number){
-    this.store.dispatch(fromAction.deleteEmpleado({id:id}))
+    if(confirm("esta seguro de eliminar?")){
+      this.store.dispatch(fromAction.deleteEmpleado({id:id}))
+    }
+  }
+
+  selectEmp(emp: Empleado){
+    this.service.empleadoService= Object.assign({}, emp)
   }
 
 }
+//(click)="selectEmp(emp)"
