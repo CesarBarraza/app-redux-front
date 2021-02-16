@@ -4,10 +4,12 @@ import { EmpleadoViewComponent } from './empleado/componentes/empleado-view/empl
 import { FormEmpleadoComponent } from './empleado/componentes/form-empleado/form-empleado.component';
 
 import { EmpleadoModule } from './empleado/empleado.module';
+import { UserLoginComponent } from './login/componentes/user-login/user-login.component';
 
 const routes: Routes = [
   { path: 'administrar', component: FormEmpleadoComponent },
-  { path: 'vistaEmpleado', component: EmpleadoViewComponent }
+  { path: 'vistaEmpleado', component: EmpleadoViewComponent },
+  { path: 'user-login', component: UserLoginComponent}
 ];
 
 @NgModule({
