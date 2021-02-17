@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+
 import { EmpleadoModule } from './empleado/empleado.module';
 import { UserLoginModule } from './login/user-login.module';
 
@@ -12,6 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
+import { AlertModule } from 'ngx-alerts';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { AppEffects } from './app.effects';
     EmpleadoModule,
     UserLoginModule,
     AppRoutingModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 3000, positionX: 'right'}),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

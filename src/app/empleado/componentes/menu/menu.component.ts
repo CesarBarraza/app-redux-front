@@ -13,4 +13,9 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  salir(){
+    localStorage.setItem('user', null)
+    this.router.navigate(['/user-login'])
+  }
+
 }

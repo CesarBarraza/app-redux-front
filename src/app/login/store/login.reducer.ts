@@ -15,7 +15,7 @@ export const loginAdapter: EntityAdapter<User>= createEntityAdapter()
 
 export const loginInitialState = loginAdapter.getInitialState({
   error: undefined,
-  user: undefined
+  user: null
 })
 
 export const loginReducers = createReducer(
@@ -23,7 +23,8 @@ export const loginReducers = createReducer(
   on(fromAction.loginSuccess, (state, action) =>{
     return {
       ...state,
-      user: action.user
+      user: action.user,
+      error: null
     }
   }),
   on(fromAction.loginFailure, (state, action) =>{

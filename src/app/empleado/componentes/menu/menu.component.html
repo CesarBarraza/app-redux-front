@@ -24,13 +24,20 @@
           <a class="nav-link" href="#">
             <i class="fas fa-home ml-5"></i> HOME</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" routerLink="/administrar">
             <i class="fas fa-users-cog"></i> ADMINISTRAR</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" routerLink="/user-login">
             <i class="fas fa-sign-in-alt"></i> INGRESAR</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" (click)="salir()">
+            <i class="fas fa-sign-in-alt"></i> SALIR</a>
         </li>
       </ul>
     </nav>

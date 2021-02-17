@@ -5,27 +5,30 @@ import { Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AlertService } from 'ngx-alerts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  user$ : Observable<User>
 
-  /*loginUser(user: User): Observable<User>{
-    return this.http.post<User>(environment.URL_API+'/Usuario', user);
-  }*/
+  constructor(private http: HttpClient, private router: Router, private alertService: AlertService) {
 
-  login(user: User): Observable<User>{
-    return this.http.post<User>(environment.URL_API+'/usuario', user).pipe(
+   }
+
+  login(usuario: User): Observable<any>{
+    return this.http.post(environment.URL_API+'/usuario', usuario).pipe(
       switchMap((users) =>{
         let user = users;
         if(user){
           localStorage.setItem('user', JSON.stringify(user));
+          this.alertService.success('Bienvenido/a '+usuario.email);
           this.router.navigate(['/'])
           return of(user);
         }else {
+          this.alertService.danger('Los datos ingresados son incorrectos');
           return throwError('Datos incorrectos')
         }
       })
