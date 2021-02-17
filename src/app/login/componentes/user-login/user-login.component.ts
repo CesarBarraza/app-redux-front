@@ -27,14 +27,14 @@ export class UserLoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(){
+  /*login(){
     this.service.loginUser(this.formLogin.value).subscribe(data =>{
       if(data == null) alert('datos incorrectos')
       else{
         this.router.navigate(['/'])
       }
     })
-  }
+  }*/
 
   loginUser(){
     this.store.dispatch(fromActionLogin.login({user: this.formLogin.value}))

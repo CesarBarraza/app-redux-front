@@ -14,8 +14,8 @@ export class EffectLoginEffects {
   login$ = createEffect(() =>
   this.actions$.pipe(
     ofType(fromActionLogin.login),
-    mergeMap(action => this.service.loginUser(action.user).pipe(
-      map((data) => fromActionLogin.loginSuccess({user: action.user})),
+    concatMap(action => this.service.login(action.user).pipe(
+      map((data) => fromActionLogin.loginSuccess({user: data })),
       catchError((error) => of(fromActionLogin.loginFailure(error)))
     ))
   )
