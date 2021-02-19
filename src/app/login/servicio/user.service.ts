@@ -5,33 +5,38 @@ import { Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AlertService } from 'ngx-alerts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  user$ : Observable<User>
+  isLogged: boolean
 
-  constructor(private http: HttpClient, private router: Router, private alertService: AlertService) {
-
-   }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(usuario: User): Observable<any>{
     return this.http.post(environment.URL_API+'/usuario', usuario).pipe(
       switchMap((users) =>{
         let user = users;
         if(user){
-          localStorage.setItem('user', JSON.stringify(user));
-          this.alertService.success('Bienvenido/a '+usuario.email);
+          this.isLogged = true
+          localStorage.setItem('isLogged', JSON.stringify(true))
           this.router.navigate(['/'])
           return of(user);
         }else {
-          this.alertService.danger('Los datos ingresados son incorrectos');
           return throwError('Datos incorrectos')
         }
       })
     )
+  }
+
+  registro(user: User): Observable<User>{
+    return this.http.post<User>(environment.URL_API+'/registro', user)
+  }
+
+  logOut(){
+    this.isLogged = false
+    localStorage.removeItem('isLogged')
   }
 }

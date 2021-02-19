@@ -24,7 +24,7 @@ import { AlertModule } from 'ngx-alerts';
     EmpleadoModule,
     UserLoginModule,
     AppRoutingModule,
-    AlertModule.forRoot({maxMessages: 5, timeout: 3000, positionX: 'right'}),
+    AlertModule.forRoot({maxMessages: 5, timeout: 4000, positionX: 'right'}),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

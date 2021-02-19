@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { LoginState } from '../../store/login.reducer';
 import * as fromActionLogin from '../../store/login.action';
-import { NgxSpinnerService } from "ngx-spinner";
+import { AlertService } from 'ngx-alerts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -18,12 +19,18 @@ export class UserLoginComponent implements OnInit {
   })
 
   constructor(private store: Store<LoginState>,
-              private spinner: NgxSpinnerService) { }
+              private alert: AlertService,
+              public router: Router
+              ) { }
 
   ngOnInit(): void {  }
 
   loginUser(){
-    this.store.dispatch(fromActionLogin.login({user: this.formLogin.value}))
+    if(this.formLogin.valid){
+      this.store.dispatch(fromActionLogin.login({user: this.formLogin.value}))
+    }else{
+      this.alert.warning('Los datos ingresados no son correctos!!')
+    }
   }
 
 }

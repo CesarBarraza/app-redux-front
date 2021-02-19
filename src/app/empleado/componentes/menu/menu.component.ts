@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { UserService } from 'src/app/login/servicio/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,13 +10,15 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  user: string= localStorage.getItem('isLogged')
+  constructor(private router: Router, public service: UserService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    this.user
   }
 
   salir(){
-    localStorage.setItem('user', null)
+    this.service.logOut()
     this.router.navigate(['/user-login'])
   }
 

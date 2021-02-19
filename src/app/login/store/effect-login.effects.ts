@@ -5,6 +5,7 @@ import { map, concatMap, catchError, mergeMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserService } from '../servicio/user.service';
 import { Router } from '@angular/router';
+import { User } from '../user';
 
 
 
@@ -15,8 +16,18 @@ export class EffectLoginEffects {
   this.actions$.pipe(
     ofType(fromActionLogin.login),
     concatMap(action => this.service.login(action.user).pipe(
-      map((data) => fromActionLogin.loginSuccess({user: data })),
+      map((data: User) => fromActionLogin.loginSuccess({user: data })),
       catchError((error) => of(fromActionLogin.loginFailure(error)))
+    ))
+  )
+  )
+
+  registro$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(fromActionLogin.registro),
+    mergeMap(action => this.service.registro(action.user).pipe(
+      map((data: User) => fromActionLogin.registroSuccess({ user: action.user })),
+      catchError((error:any) => of(fromActionLogin.registroFailure(error)))
     ))
   )
   )
