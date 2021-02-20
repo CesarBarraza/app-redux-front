@@ -3,9 +3,8 @@ import { User } from '../user';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AlertService } from 'ngx-alerts';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,9 @@ export class UserService {
   userSubject: BehaviorSubject<User>
   isLogged: Observable<User>
 
-  constructor(private http: HttpClient, private router: Router, private alert: AlertService) {
+  constructor(private http: HttpClient, private router: Router) {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('usuario')));
-    this.isLogged = this.userSubject.asObservable();
+    //this.isLogged = this.userSubject.asObservable();
    }
 
   login(usuario: User): Observable<any>{
@@ -40,7 +39,8 @@ export class UserService {
     return this.http.post<User>(environment.URL_API+'/registro', usuario)
     .pipe(
       map(() =>{
-        return of(usuario);
+        this.router.navigate(['/user-login'])
+        return usuario;
       }),
       catchError(error => of(error))
     )

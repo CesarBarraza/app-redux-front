@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
 import { UserService } from 'src/app/login/servicio/user.service';
 import { LoginState } from 'src/app/login/store/login.reducer';
 import { User } from 'src/app/login/user';
-import * as fromActionLogin from '../../../login/store/login.action';
 
 @Component({
   selector: 'app-menu',

@@ -10,14 +10,12 @@ import { ListEmpleadoComponent } from 'src/app/empleado/componentes/list-emplead
 import * as fromEmpleadoState from './store/reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { EmpleadoEffects } from './store/empleado.effects';
-import { MenuComponent } from './componentes/menu/menu.component';
 import { EmpleadoViewComponent } from './componentes/empleado-view/empleado-view.component';
 
 @NgModule({
   declarations: [
     ListEmpleadoComponent,
     FormEmpleadoComponent,
-    MenuComponent,
     EmpleadoViewComponent
   ],
   imports: [
@@ -31,7 +29,6 @@ import { EmpleadoViewComponent } from './componentes/empleado-view/empleado-view
   exports: [
     ListEmpleadoComponent,
     FormEmpleadoComponent,
-    MenuComponent
   ]
 })
 export class EmpleadoModule { }

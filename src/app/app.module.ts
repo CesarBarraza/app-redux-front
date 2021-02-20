@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { EmpleadoModule } from './empleado/empleado.module';
 import { UserLoginModule } from './login/user-login.module';
+import { MenuComponent } from '../../src/app/menu/menu.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { AlertModule } from 'ngx-alerts';
 @NgModule({
   declarations: [
     AppComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
