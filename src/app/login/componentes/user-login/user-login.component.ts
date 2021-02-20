@@ -29,7 +29,7 @@ export class UserLoginComponent implements OnInit {
     if(this.formLogin.valid){
       this.store.dispatch(fromActionLogin.login({user: this.formLogin.value}))
     }else{
-      this.alert.warning('Los datos ingresados no son correctos!!')
+      this.alert.warning('Todos los campos son obligatorios!!')
     }
   }
 

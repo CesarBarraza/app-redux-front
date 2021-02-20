@@ -32,6 +32,14 @@ export class EffectLoginEffects {
   )
   )
 
+  /*logOut$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(fromActionLogin.logOut),
+    mergeMap(() => this.service.logOut().pipe(
+      map((user: User) => fromActionLogin.logOut())
+    ))
+  ))*/
+
 
   constructor(private actions$: Actions, private service: UserService, private router: Router) {}
 

@@ -28,3 +28,8 @@ export const registroFailure = createAction(
     '[Effect Login] Registro Failure',
     props<{ error: any }>()
 )
+
+//logout user
+export const logOut = createAction(
+    '[Menu Component] Log Out',
+)

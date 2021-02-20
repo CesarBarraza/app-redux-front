@@ -1,42 +1,53 @@
 import { Injectable } from '@angular/core';
 import { User } from '../user';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AlertService } from 'ngx-alerts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  isLogged: boolean
+  userSubject: BehaviorSubject<User>
+  isLogged: Observable<User>
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private alert: AlertService) {
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('usuario')));
+    this.isLogged = this.userSubject.asObservable();
+   }
 
   login(usuario: User): Observable<any>{
     return this.http.post(environment.URL_API+'/usuario', usuario).pipe(
-      switchMap((users) =>{
+      map((users: User) =>{
         let user = users;
-        if(user){
-          this.isLogged = true
-          localStorage.setItem('isLogged', JSON.stringify(true))
+        if(user.email){
+          localStorage.setItem('usuario', JSON.stringify(user))
           this.router.navigate(['/'])
-          return of(user);
-        }else {
-          return throwError('Datos incorrectos')
+          this.userSubject.next(users)
+          return user
+        }else{
+          return catchError((error:any) => error)
         }
       })
     )
   }
 
-  registro(user: User): Observable<User>{
-    return this.http.post<User>(environment.URL_API+'/registro', user)
+  registro(usuario: User): Observable<User>{
+    return this.http.post<User>(environment.URL_API+'/registro', usuario)
+    .pipe(
+      map(() =>{
+        return of(usuario);
+      }),
+      catchError(error => of(error))
+    )
   }
 
   logOut(){
-    this.isLogged = false
-    localStorage.removeItem('isLogged')
+    localStorage.removeItem('usuario')
+    this.userSubject.next(null)
   }
 }

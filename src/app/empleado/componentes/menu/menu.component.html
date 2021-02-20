@@ -5,34 +5,29 @@
           <a class="nav-link" href="#">
             <i class="fas fa-home ml-5"></i> HOME</a>
         </li>
+      </ul>
+      <ul class="navbar-nav" *ngIf="!user; else login;">
 
-       <li class="nav-item">
-          <a class="nav-link" routerLink="/administrar">
-            <i class="fas fa-users-cog"></i> ADMINISTRAR</a>
-        </li>
-        <li class="nav-item" >
+        <li class="nav-item">
           <a class="nav-link" routerLink="/user-login">
             <i class="fas fa-sign-in-alt"></i> INGRESAR</a>
         </li>
-
-        <li class="nav-item" >
-          <a class="nav-link" (click)="salir()">
-            <i class="fas fa-sign-in-alt"></i> SALIR</a>
-        </li>
       </ul>
-      <!--<ng-template #login>
-        <ul>
-          <li class="nav-item" *ngIf="user">
+
+      <!--TEMPLATE PARA LOGIN-->
+      <ng-template #login>
+        <ul class="navbar-nav">
+          <li class="nav-item" >
             <a class="nav-link" routerLink="/administrar">
               <i class="fas fa-users-cog"></i> ADMINISTRAR</a>
           </li>
 
-          <li class="nav-item" *ngIf="user">
+          <li class="nav-item">
             <a class="nav-link" (click)="salir()">
-              <i class="fas fa-sign-in-alt"></i> SALIR</a>
-          </li>
-
+              <i class="fas fa-sign-in-alt"></i> @{{user.nombre}}/SALIR</a>
+            </li>
         </ul>
-      </ng-template>-->
+      </ng-template>
+      <!--FIN TEMPLATE-->
     </nav>
   </div>

@@ -6,9 +6,10 @@ import { FormEmpleadoComponent } from './empleado/componentes/form-empleado/form
 import { EmpleadoModule } from './empleado/empleado.module';
 import { RegistroComponent } from './login/componentes/registro/registro.component';
 import { UserLoginComponent } from './login/componentes/user-login/user-login.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
-  { path: 'administrar', component: FormEmpleadoComponent },
+  { path: 'administrar', component: FormEmpleadoComponent, canActivate: [AuthGuard] },
   { path: 'vistaEmpleado', component: EmpleadoViewComponent },
   { path: 'user-login', component: UserLoginComponent},
   { path: 'registro', component: RegistroComponent }
