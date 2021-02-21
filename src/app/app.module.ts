@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 
 import { EmpleadoModule } from './empleado/empleado.module';
@@ -23,6 +24,7 @@ import { AlertModule } from 'ngx-alerts';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     EmpleadoModule,
     UserLoginModule,
     AppRoutingModule,

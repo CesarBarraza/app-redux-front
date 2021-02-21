@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { FormEmpleadoComponent } from 'src/app/empleado/componentes/form-empleado/form-empleado.component';
 import { ListEmpleadoComponent } from 'src/app/empleado/componentes/list-empleado/list-empleado.component';
@@ -11,6 +10,7 @@ import * as fromEmpleadoState from './store/reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { EmpleadoEffects } from './store/empleado.effects';
 import { EmpleadoViewComponent } from './componentes/empleado-view/empleado-view.component';
+import { EmpleadoRoutingModule } from './empleado-routing.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { EmpleadoViewComponent } from './componentes/empleado-view/empleado-view
   ],
   imports: [
     CommonModule,
-    RouterModule,
+    EmpleadoRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forFeature(fromEmpleadoState.empleadoStateFeatureKey, fromEmpleadoState.empleadoReducers),
