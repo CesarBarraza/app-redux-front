@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UserService } from 'src/app/login/servicio/user.service';
 import { LoginState } from 'src/app/login/store/login.reducer';
+import * as fromActionLogin from '../login/store/login.action';
+
 import { User } from 'src/app/login/user';
 
 @Component({
@@ -24,7 +26,8 @@ export class MenuComponent implements OnInit {
 
   salir(){
     this.service.logOut()
-    this.router.navigate(['/user-login'])
+    this.router.navigate(['/auth/user-login'])
+    this.store.dispatch(fromActionLogin.logOut())
   }
 
 }

@@ -1,22 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { EmpleadoModule } from './empleado/empleado.module';
+import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
 
 const routes: Routes = [
   { path: 'empleados', 
-  loadChildren: () => import('./empleado/empleado.module').then(m => m.EmpleadoModule)
+    loadChildren: () => import('./empleado/empleado.module').then(m => m.EmpleadoModule)
   },
   { path: 'auth',
-    loadChildren: () => import('./login/user-login.module').then(m => m.UserLoginModule)
-  }
+    loadChildren: () => import('./login/user-login.module').then(m => m.UserLoginModule),
+    data: { preload: true }
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: SelectivePreloadingStrategyService
+    })
   ],
-  exports: [RouterModule, EmpleadoModule]
+  exports: []
 })
 export class AppRoutingModule { }

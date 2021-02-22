@@ -20,7 +20,7 @@ export class ListEmpleadoComponent implements OnInit {
 
   constructor(private store: Store<EmpleadoState>, 
               private service: EmpleadoService,
-              private router: Router) { }
+              public router: Router) { }
 
   ngOnInit(): void {
     this.store.dispatch(fromAction.loadEmpleados())
@@ -37,8 +37,8 @@ export class ListEmpleadoComponent implements OnInit {
     }
   }
 
-  selectEmp(emp: Empleado){
-    this.service.empleadoService= Object.assign({}, emp)
+  hola(){
+    this.router.navigate(['/empleados/vista'])
   }
 
 }

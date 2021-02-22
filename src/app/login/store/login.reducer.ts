@@ -9,24 +9,32 @@ export const loginStateFeatureKey = 'loginState';
 
 export interface LoginState extends EntityState<User>{
   error: any,
-  user: User
+  user: User,
+  isLogged: boolean
 }
 
-export const loginAdapter: EntityAdapter<User>= createEntityAdapter()
+export function selectUserId(user: User): number{
+  return user.id
+}
+
+export const loginAdapter: EntityAdapter<User>= createEntityAdapter({
+  selectId: selectUserId
+})
 
 export const loginInitialState = loginAdapter.getInitialState({
   error: undefined,
-  user: null
+  user: null,
+  isLogged: undefined
 })
 
 export const loginReducers = createReducer(
   loginInitialState,
   on(fromAction.loginSuccess, (state, action) =>{
-    return {
-      ...state,
+    return loginAdapter.setOne(action.user,
+      {...state,
       user: action.user,
-      error: null
-    }
+      error: null,
+      isLogged: true})
   }),
   on(fromAction.loginFailure, (state, action) =>{
     return {
@@ -41,6 +49,13 @@ export const loginReducers = createReducer(
     return {
       ...state,
       error: action.error
+    }
+  }),
+  on(fromAction.logOut, ( state, action) =>{
+    return{
+      ...state,
+      isLogged: false,
+      user: null
     }
   })
 )

@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { User } from '../user';
 
 
-
 @Injectable()
 export class EffectLoginEffects {
 
@@ -17,7 +16,7 @@ export class EffectLoginEffects {
     ofType(fromActionLogin.login),
     concatMap(action => this.service.login(action.user).pipe(
       map((data: User) => fromActionLogin.loginSuccess({user: data })),
-      catchError((error) => of(fromActionLogin.loginFailure(error)))
+      catchError((error: any) => of(fromActionLogin.loginFailure(error)))
     ))
   )
   )
@@ -28,8 +27,17 @@ export class EffectLoginEffects {
     mergeMap(action => this.service.registro(action.user).pipe(
       map((data: User) => fromActionLogin.registroSuccess({ user: action.user })),
       catchError((error:any) => of(fromActionLogin.registroFailure(error)))
-    ))
+    )),
+    tap(() => this.router.navigate(['/auth/user-login']))
   )
+  )
+
+  //redirecciona al home si el login es correcto
+  loginSuccess$= createEffect(() =>
+  this.actions$.pipe(
+    ofType(fromActionLogin.loginSuccess),
+    tap(() => this.router.navigate(['/']))),
+    { dispatch: false }
   )
 
   /*logOut$ = createEffect(() =>

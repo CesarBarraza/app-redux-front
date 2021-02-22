@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../user';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -24,8 +24,8 @@ export class UserService {
       map((users: User) =>{
         let user = users;
         if(user.email){
+          
           localStorage.setItem('usuario', JSON.stringify(user))
-          this.router.navigate(['/'])
           this.userSubject.next(users)
           return user
         }else{
@@ -39,7 +39,6 @@ export class UserService {
     return this.http.post<User>(environment.URL_API+'/registro', usuario)
     .pipe(
       map(() =>{
-        this.router.navigate(['/user-login'])
         return usuario;
       }),
       catchError(error => of(error))
